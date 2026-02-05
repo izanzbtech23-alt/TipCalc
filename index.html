@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Georgia, serif;
+      background: linear-gradient(135deg, #a8d4f0 0%, #7eb8da 50%, #5a9fc9 100%);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    /* Centered card container */
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.5rem 2rem;
+      max-width: 320px;
+      width: 100%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 { margin: 0 0 1rem 0; font-size: 1.4rem; text-align: center; color: #333; }
+    label { display: block; margin-bottom: 0.25rem; font-size: 0.95rem; color: #555; }
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 0.6rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background: #4a90c4;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      background: #3a7ab0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .results {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
+    .results p { margin: 0.4rem 0; font-size: 1rem; }
+    .results .total { font-size: 1.2rem; font-weight: bold; color: #222; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Tip Calculator</h1>
+
+    <!-- Bill amount input -->
+    <label for="bill">Bill amount ($)</label>
+    <input type="number" id="bill" placeholder="0.00" min="0" step="0.01" />
+
+    <!-- Tip percentage input -->
+    <label for="tip">Tip percentage (%)</label>
+    <input type="number" id="tip" placeholder="15" min="0" max="100" step="0.5" />
+
+    <!-- Button runs the calculation when clicked -->
+    <button type="button" id="calcBtn">Calculate</button>
+
+    <!-- Where we show the results -->
+    <div class="results">
+      <p>Tip amount: <span id="tipAmount">$0.00</span></p>
+      <p class="total">Total: <span id="total">$0.00</span></p>
+    </div>
+  </div>
+
+  <script>
+    // Get references to the input fields and result areas
+    var billInput = document.getElementById('bill');
+    var tipInput = document.getElementById('tip');
+    var tipAmountSpan = document.getElementById('tipAmount');
+    var totalSpan = document.getElementById('total');
+    var calcBtn = document.getElementById('calcBtn');
+
+    // When the button is clicked, run the calculation
+    calcBtn.addEventListener('click', function() {
+      // Read values from inputs; parseFloat turns text into a number
+      var bill = parseFloat(billInput.value) || 0;
+      var tipPercent = parseFloat(tipInput.value) || 0;
+
+      // Calculate tip in dollars and total (bill + tip)
+      var tipDollars = (bill * tipPercent) / 100;
+      var total = bill + tipDollars;
+
+      // Format as currency and show in the result spans
+      tipAmountSpan.textContent = '$' + tipDollars.toFixed(2);
+      totalSpan.textContent = '$' + total.toFixed(2);
+    });
+  </script>
+</body>
+</html>
